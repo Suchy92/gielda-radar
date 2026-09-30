@@ -1,0 +1,10 @@
+{
+  "_opis": "Spółki, które radar śledzi w polskich wiadomościach. 'query' to fraza szukana w Google News PL. Dodawaj/usuwaj wpisy dowolnie.",
+  "spolki": [
+    { "nazwa": "Nvidia",   "query": "Nvidia" },
+    { "nazwa": "AMD",       "query": "AMD akcje" },
+    { "nazwa": "Dino",      "query": "Dino Polska" },
+    { "nazwa": "Take-Two",  "query": "Take-Two Interactive" },
+    { "nazwa": "XTB",       "query": "XTB akcje" }
+  ]
+}
