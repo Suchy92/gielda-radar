@@ -1,0 +1,35 @@
+name: Radar giełdowy
+
+on:
+  schedule:
+    - cron: "*/15 * * * *"   # co 15 minut
+  workflow_dispatch:          # przycisk do ręcznego uruchomienia (do testu)
+
+permissions:
+  contents: write             # pozwala zapisać seen.json z powrotem
+
+jobs:
+  radar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Instalacja bibliotek
+        run: pip install -r requirements.txt
+
+      - name: Uruchom radar
+        env:
+          NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
+        run: python radar.py
+
+      - name: Zapisz pamięć (seen.json)
+        run: |
+          git config user.name "radar-bot"
+          git config user.email "radar-bot@users.noreply.github.com"
+          git add seen.json
+          git commit -m "aktualizacja pamięci radaru" || echo "brak zmian"
+          git push || echo "nic do wypchnięcia"
